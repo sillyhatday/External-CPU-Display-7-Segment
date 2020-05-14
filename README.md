@@ -3,9 +3,15 @@ An External CPU indicator display - Set up for a 2 digit display - Expandable to
 
 This took me far longer than I want to admit. The electronic side took no time to sort out, the lack of coding knowledge took me around the houses. Trying to get other peoples code adapted to work for my application. Lets talk through it, with various options to get an end result.
 
-I wanted to use some retro VFD tubes to display computers CPU usage in percentage. This was after many other ideas. My first idea to get this to work was with display multiplexing. The standard arduino doesn't have enough I/O for driving 7 display segments x2 plus one for each digit to be controlled on or off. Multiplexing is nothing new, there is enough out there to explain how it works if you do not know. 
+I wanted to use some retro IV-3 VFD tubes to display computers CPU usage in percentage. This was after many other ideas. My first idea to get this to work was with display multiplexing. The standard arduino doesn't have enough I/O for driving 7 display segments x2 plus one for each digit to be controlled on or off. Multiplexing is nothing new, there is enough out there to explain how it works if you do not know.
 
-Option 1.
+You will need some 74HC595 shift registers and for VFD tubes a UDN2981, per tube. You can use any 8 channel source driver you like, so long as it isolates the high voltage away from the Arduino and is designed for the high voltage.
+
+Schematic: not finished - missing heater power source!
+![CPU Monitor Schem](https://user-images.githubusercontent.com/65309612/81947803-df5c0800-95f8-11ea-93c5-d733ee2ebe9a.png)
+
+
+# Option 1.
 
 This is not the best soultion, you're best skipping to the next one.
 
@@ -13,10 +19,14 @@ This option worked in a fashion. While the Arduino is busy multiplexing the disp
 
 I do wonder if someone more experienced can write some more efficient code to allow this to work properly, which is why I included this in here. Possibly editing the PC software to do the work before being sent to the arduino. (I don't know how to do that)
 
-Option 2.
+# Option 2.
 
 After that I realised that I'd be able to use shift registers to solve the issue. If the hardware you have can't do the job, add more hardware. Simply the shift registers do all the work in the displays, the arduino spends its time reading the serial port and calculating averages. Another bonus is that you can have longer periods of time to take an average. Making a really nice stable display. Downside is that you need more hardware to make it all work.
 
-Included is the schematic for making your own PCB. I have yet to make my own PCB and haven't sorted out a constant current source for driving the VFD heaters. For testing I've been connecting the heaters in series with a 100ohm resistor on 5v. You can use a 120ohm resistor too so you can underdrive the tubes. This will help to make them last longer as they will loose their brightness over time.
+Included is the schematic for making your own PCB. I have yet to make my own PCB and haven't sorted out a constant current source for driving the VFD heaters. For testing I've been connecting the heaters in series with a 100ohm resistor on 5v. You can use a 120ohm resistor too so you can underdrive the tubes. I've been testing with 1/4 watt resistors that work but run very hot, I'd go for 1/2 watt or 1 watt in the long term. This will help to make them last longer, as they will loose their brightness over time.
 
 The Arduino sketch has inverted hex values to be able to drive either, a common anode or common cathode LED seven segment display. For driving the VFD tubes you need to use the common cathode hex values.
+
+Running the segments and the grid requires a 'high' voltage. Arduino outputs are fine for driving a LED display, the VFD tubes require a higher driving voltage. Anoyingly, you can just bearly get them to run on only 5v but it is not very useful, they are so dim. I found that the datasheet for the tubes say to drive them around 24v. They will be nice and bright but wear out much faster. I personally like them running between 8.5v and 12v, they look just fine.
+
+For testing I've been using a prebuilt boost convertor to only need a single 5v supply input. Which is got from the USB that needs plugging in for the serial data.
