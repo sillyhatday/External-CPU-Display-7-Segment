@@ -30,3 +30,5 @@ The Arduino sketch has inverted hex values to be able to drive either, a common 
 Running the segments and the grid requires a 'high' voltage. Arduino outputs are fine for driving a LED display, the VFD tubes require a higher driving voltage. Anoyingly, you can just bearly get them to run on only 5v but it is not very useful, they are so dim. I found that the datasheet for the tubes say to drive them around 24v. They will be nice and bright but wear out much faster. I personally like them running between 8.5v and 12v, they look just fine.
 
 For testing I've been using a prebuilt boost convertor to only need a single 5v supply input. Which is got from the USB that needs plugging in for the serial data.
+
+With only needing now 3 Arduino I/O pins you can use a really small Arduino to tidy things up. 
