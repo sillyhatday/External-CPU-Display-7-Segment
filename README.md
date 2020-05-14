@@ -11,6 +11,9 @@ I wanted to use some retro IV-3 VFD tubes to display computers CPU usage in perc
 
 You will need some 74HC595 shift registers and for VFD tubes a UDN2981, per tube. You can use any 8 channel source driver you like, so long as it isolates the high voltage away from the Arduino and is designed for the high voltage.
 
+I borrowed the PC software side from here: https://github.com/Maciekbac/Arduino-LED-CPU-Monitor
+Credit to Maciekbac for that.
+
 Schematic: not finished - missing heater power source!
 ![CPU Monitor Schem](https://user-images.githubusercontent.com/65309612/81947803-df5c0800-95f8-11ea-93c5-d733ee2ebe9a.png)
 
